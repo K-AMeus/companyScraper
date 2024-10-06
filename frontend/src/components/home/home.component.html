@@ -1,0 +1,23 @@
+<div class="scraper-container">
+    <h1>Scrape a Website</h1>
+  
+    <div class="input-container">
+      <input [(ngModel)]="url" placeholder="Enter URL to scrape" />
+      <button (click)="scrapePage()">Scrape</button>
+    </div>
+  
+    <div *ngIf="isLoading" class="loading">
+      <p>Loading...</p>
+    </div>
+  
+    <div *ngIf="scrapedData && !isLoading" class="scraped-data">
+      <h3>Scraped Data</h3>
+      <p><strong>Title:</strong> {{ scrapedData.title }}</p>
+      <p><strong>Description:</strong> {{ scrapedData.description }}</p>
+    </div>
+  
+    <div *ngIf="errorMessage" class="error-message">
+      <p>{{ errorMessage }}</p>
+    </div>
+  </div>
+  
