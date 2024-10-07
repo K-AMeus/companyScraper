@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ScrapingService } from '../../api/scraper/dataScraper';
 
 @Component({
   selector: 'app-home',
@@ -15,14 +16,22 @@ export class HomeComponent {
   errorMessage: string = '';
   isLoading: boolean = false;
 
+  constructor(private scrapingService: ScrapingService) {} 
+
   scrapePage() {
     this.isLoading = true;
     setTimeout(() => {
-      this.scrapedData = {
-        title: 'Mocked Title',
-        description: 'Mocked description for the scraped page.'
-      };
+      this.scrapingService.scrapePage(this.url).subscribe({
+          next: (data) => {
+            this.scrapedData = {
+              title: data.title,
+              description: data.description
+            }
+          }
+      });
       this.isLoading = false;
-    }, 1000);
+    },1000);
+
   }
 }
+
