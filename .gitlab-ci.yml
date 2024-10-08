@@ -41,6 +41,7 @@ run:
 pages:
   script:
     - pip install sphinx sphinx-rtd-theme
+    - mkdir -p doc
     - cd doc
     - make html
     - mv build/html/ ../public/
