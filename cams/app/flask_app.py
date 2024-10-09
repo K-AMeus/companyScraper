@@ -2,6 +2,9 @@ from flask import Flask
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 
+from . import db
+from .routes import api_bp
+
 db = SQLAlchemy()
 
 def create_app():

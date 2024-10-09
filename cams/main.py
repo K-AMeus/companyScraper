@@ -1,8 +1,8 @@
-from flask import Flask, request, jsonify 
+from flask import request, jsonify 
 from flask_cors import CORS
 import requests
 from bs4 import BeautifulSoup
-from app import create_app
+from cams import create_app
 
 app = create_app()
 CORS(app)  # Allow all origins by default

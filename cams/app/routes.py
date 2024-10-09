@@ -2,7 +2,6 @@ from flask import Blueprint, jsonify, request
 from . import db
 from .models import Test
 
-
 api_bp = Blueprint('api', __name__)
 
 @api_bp.route('/test', methods=['GET'])

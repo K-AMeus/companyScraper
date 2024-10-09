@@ -1,4 +1,9 @@
 .angular/cache
 .venv
 .vscode
-/backend/app/__pycache__
+.gitlab-ci-local
+/cache
+/cams/app/__pycache__
+/tests/__pycache__
+.pytest_cache
+/cams/__pycache__
