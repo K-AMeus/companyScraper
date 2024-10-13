@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +13,6 @@ export class ScrapingService {
   constructor(private http: HttpClient) {}
 
   scrapePage(url: string): Observable<any> {
-    return this.http.post('http://127.0.0.1:5000/api/scrape', { url });
+    return this.http.post(`${environment.apiUrl}/api/scrape`, { url });
   }
 }
