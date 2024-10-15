@@ -2,6 +2,7 @@ import time
 from bs4 import BeautifulSoup
 import requests
 import json
+import re
 
 def fetch_and_parse(url):
     #Fetch and parse the XML content from a URL.
