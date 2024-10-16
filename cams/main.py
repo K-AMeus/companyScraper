@@ -6,7 +6,8 @@ from flask import request, jsonify
 from flask_cors import CORS
 import requests
 from bs4 import BeautifulSoup
-from cams import create_app
+from googleapiclient.discovery import build
+from app import create_app
 
 app = create_app()
 CORS(app)  # Allow all origins by default
@@ -36,6 +37,28 @@ def scrape_page():
 
     except requests.exceptions.RequestException as e:
         return jsonify({"error": str(e)}), 500
+    
+    
+@app.route('/api/search', methods=['POST'])
+def search():
+    data = request.get_json()
+
+    if not data or 'query' not in data:
+        return jsonify({"error": "Query is required"}), 400
+
+    query = data['query']
+    api_key = os.getenv('GOOGLE_API_KEY')
+    cx = os.getenv('CX_KEY')          
+
+    try:
+        service = build("customsearch", "v1", developerKey=api_key)
+        res = service.cse().list(q=query, cx=cx).execute()
+
+        return jsonify(res), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')

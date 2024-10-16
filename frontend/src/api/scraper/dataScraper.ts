@@ -15,4 +15,8 @@ export class ScrapingService {
   scrapePage(url: string): Observable<any> {
     return this.http.post(`${environment.apiUrl}/api/scrape`, { url });
   }
+
+  searchCompany(query: string, timeRange: string): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/api/search`, { query, timeRange });
+  }
 }
