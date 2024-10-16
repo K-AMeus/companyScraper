@@ -8,30 +8,38 @@ import { ScrapingService } from '../../api/scraper/dataScraper';
   standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent {
-  url: string = '';
-  scrapedData: any = null;
+  companyName: string = '';
+  timeRange: string = '6m'; //default
+  searchResults: any = null;
+  report: any = null; 
   errorMessage: string = '';
   isLoading: boolean = false;
 
-  constructor(private scrapingService: ScrapingService) {} 
+  constructor(private scrapingService: ScrapingService) {}
 
-  scrapePage() {
+  searchCompany() {
+    if (!this.companyName.trim()) {
+      this.errorMessage = 'Please enter a company name.';
+      return;
+    }
+
     this.isLoading = true;
-    setTimeout(() => {
-      this.scrapingService.scrapePage(this.url).subscribe({
-          next: (data) => {
-            this.scrapedData = {
-              title: data.title,
-              description: data.description
-            }
-          }
-      });
-      this.isLoading = false;
-    },1000);
+    this.errorMessage = '';
+    this.searchResults = null;
 
+    this.scrapingService.searchCompany(this.companyName, this.timeRange).subscribe({
+      next: (data) => {
+        this.searchResults = data.items || [];
+        this.isLoading = false;
+      },
+      error: (error) => {
+        this.errorMessage = 'An error occurred while searching.';
+        console.error(error);
+        this.isLoading = false;
+      },
+    });
   }
 }
-

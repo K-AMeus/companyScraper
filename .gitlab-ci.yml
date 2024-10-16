@@ -47,6 +47,8 @@ deploy_backend:
     - curl -sL https://railway.app/install.sh | sh
     - export PATH="$HOME/.railway/bin:$PATH"
   script:
+    - export GOOGLE_API_KEY=$GOOGLE_API_KEY
+    - export CX_KEY=$CX_KEY
     - railway up --service="backend" -d
   # only:
   #   - main
