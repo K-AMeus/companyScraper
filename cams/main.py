@@ -7,7 +7,7 @@ from flask_cors import CORS
 import requests
 from bs4 import BeautifulSoup
 from googleapiclient.discovery import build
-from .app import create_app
+from app import create_app
 
 app = create_app()
 CORS(app)  # Allow all origins by default
